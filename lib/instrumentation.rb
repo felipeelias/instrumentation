@@ -1,6 +1,10 @@
 require 'instrumentation/version'
-require 'rack'
 require 'pathname'
+require 'erb'
+require 'json'
+require 'rack'
+require 'puma'
+require 'rack/handler/puma'
 
 module Instrumentation
   extend self
@@ -9,7 +13,7 @@ module Instrumentation
     report = Report.new(pid)
     server = Server.new(report)
     report.start
-    Rack::Handler::WEBrick.run(server.proc)
+    Rack::Handler::Puma.run(server.proc, Port: 8080)
     report.join
   end
 

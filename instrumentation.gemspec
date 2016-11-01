@@ -27,4 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest', '~> 5.0'
 
   spec.add_dependency 'rack', '2.0.1'
+  spec.add_dependency 'tubesock', '0.2.7'
+  spec.add_dependency 'puma', '3.6.0'
 end

@@ -17,8 +17,22 @@
         ],
       },
       point: {
-          show: false
+        show: false
       }
     });
+
+    var socket = new WebSocket("ws://localhost:8080/");
+    socket.onmessage = function (event) {
+      var data = JSON.parse(event.data)
+      var mem = data.map(function(v) { return v[1] });
+      var counts = Array.apply(null, Array(data.length)).map(function (_, i) { return i; });
+
+      chart.load({
+        columns: [
+          ["memory"].concat(mem),
+          ["count"].concat(counts)
+        ]
+      })
+    }
   </script>
 </body>

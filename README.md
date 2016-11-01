@@ -40,7 +40,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Features to be done in order for the gem to be relased as `1.0`:
 
-- [ ] Auto-refresh report (fetch datapoints dynamically)
+- [x] Auto-refresh report (fetch datapoints dynamically)
 - [ ] Implement memory reader for Linux, that reads from `/proc/<pid>/statm`, example [here][linux-statm]
 - [ ] Implement CPU % reader
 - [ ] Implement Load average reader
