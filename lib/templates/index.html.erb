@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <style type="text/css"><%= @c3css %></style>
+<body>
+  <div id="chart"></div>
+  <script charset="utf-8"><%= @d3js %></script>
+  <script><%= @c3js %></script>
+  <script>
+    var chart = c3.generate({
+      bindto: '#chart',
+      data: {
+        x: 'count',
+        columns: [
+          <%= ["memory"] + (@datapoints.map(&:last)) %>,
+          <%= ["count"] + (0..@datapoints.size).to_a %>
+        ],
+      },
+      point: {
+          show: false
+      }
+    });
+  </script>
+</body>
