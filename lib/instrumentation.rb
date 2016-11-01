@@ -21,3 +21,4 @@ end
 require 'instrumentation/memory'
 require 'instrumentation/server'
 require 'instrumentation/report'
+require 'instrumentation/view'
