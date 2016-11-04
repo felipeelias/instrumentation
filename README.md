@@ -1,31 +1,21 @@
 # Instrumentation
 
-Monitor any process memory usage over time
+Monitor any process memory usage over time.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Install it yourself as:
 
-```ruby
-gem 'instrumentation'
+```
+$ gem install instrumentation
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install instrumentation
-
 ## Usage
-
-### Command Line
 
 To monitor a process, get its PID from the system (using `ps aux | grep PROCESS_NAME`) and start the command:
 
 ```
-instrument <pid>
+$ instrument <pid>
 ```
 
 Then go to `http://localhost:8080` and you'll see the graph of memory usage over time.
@@ -41,6 +31,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 Features to be done in order for the gem to be relased as `1.0`:
 
 - [x] Auto-refresh report (fetch datapoints dynamically)
+- [ ] Implement option parser for command line tool
+- [ ] Add tests when the interface and functionality is defined
 - [ ] Implement memory reader for Linux, that reads from `/proc/<pid>/statm`, example [here][linux-statm]
 - [ ] Implement CPU % reader
 - [ ] Implement Load average reader
