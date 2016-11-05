@@ -1,38 +1,147 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
-  <style type="text/css"><%= asset('c3.min.css') %></style>
+  <style type="text/css">
+  * {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  }
+
+  h1 {
+    font-size: 3em;
+    color: #222;
+    margin: 0;
+  }
+
+  h5 {
+    margin: 0;
+    color: #888;
+  }
+
+  h6 {
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.7em;
+    color: #888;
+  }
+
+  span {
+    cursor: pointer;
+    font-size: 10px;
+    margin-left: 5px;
+    border: 1px solid #DDD;
+    padding: 3px 10px 4px 10px;
+  }
+
+  canvas {
+    width: 1000px;
+    height: 300px;
+  }
+
+  .content {
+    width: 1200px;
+    margin: auto;
+  }
+
+  .active {
+    background: #eeeeee;
+  }
+
+  .stats-column {
+    flex: 0 0 200px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    height: 300px;
+  }
+
+  .chart-container {
+    width: 1000px;
+    height: 300px;
+  }
+
+  .footer {
+    text-align: center;
+  }
+
+  .span-controls {
+    float: right;
+  }
+  </style>
+</head>
 <body>
-  <div id="chart"></div>
-  <script charset="utf-8"><%= asset('d3.min.js') %></script>
-  <script charset="utf-8"><%= asset('c3.min.js') %></script>
+  <div class="content">
+    <div class="container">
+      <div class="stats-column">
+        <h5>Memory (RSS)</h5>
+        <h1 id="memory-last-value">200MB</h1>
+      </div>
+      <div class="chart-container">
+        <canvas id="memory" width="1000" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script charset="utf-8"><%= asset('chart.min.js') %></script>
   <script>
-    var chart = c3.generate({
-      bindto: '#chart',
+    Chart.defaults.global.defaultFontSize = 8;
+    Chart.defaults.global.animation.duration = 500;
+    Chart.defaults.global.legend.display = false;
+    Chart.defaults.global.elements.line.backgroundColor = "rgba(0,0,0,0)";
+    Chart.defaults.global.elements.line.borderColor = "rgba(0,0,0,0.9)";
+    Chart.defaults.global.elements.line.borderWidth = 2;
+
+    var chart = new Chart(document.getElementById('memory'), {
+      type: 'line',
       data: {
-        x: 'count',
-        columns: [
-          <%= ["memory"] + (@data.fetch(:datapoints).map(&:last)) %>,
-          <%= ["count"] + (0..@data.fetch(:datapoints).size).to_a %>
-        ],
+        labels: [],
+        datasets: [{
+          label: 'RSS',
+          data: [],
+          lineTension: 0.2,
+          pointRadius: 0
+        }]
       },
-      point: {
-        show: false
-      }
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true
+            }
+          }],
+          xAxes: [{
+            type: 'time',
+            time: {
+              unitStepSize: 30
+            },
+            minUnit: 'second',
+            gridLines: {
+              display: false
+            }
+          }]
+        }
+      },
+      tooltips: {
+        enabled: false
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false
     });
 
     var socket = new WebSocket("ws://localhost:8080/");
     socket.onmessage = function (event) {
       var data = JSON.parse(event.data)
       var mem = data.map(function(v) { return v[1] });
-      var counts = Array.apply(null, Array(data.length)).map(function (_, i) { return i; });
+      var counts = data.map(function(v) { return v[0] });
 
-      chart.load({
-        columns: [
-          ["memory"].concat(mem),
-          ["count"].concat(counts)
-        ]
-      })
+      chart.data.labels = counts
+      chart.data.datasets[0].data = mem
+      chart.update()
     }
   </script>
 </body>
