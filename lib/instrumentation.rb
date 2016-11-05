@@ -24,6 +24,7 @@ end
 
 require 'instrumentation/bounded_array'
 require 'instrumentation/memory'
+require 'instrumentation/load_average'
 require 'instrumentation/server'
 require 'instrumentation/report'
 require 'instrumentation/view'
