@@ -4,10 +4,10 @@ Monitor any process memory usage over time.
 
 ## Installation
 
-Install it yourself as:
+Until the gem is released, you'll have to clone the repository and run the command manually:
 
 ```
-$ gem install instrumentation
+$ git clone git@github.com:felipeelias/instrumentation.git
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ $ gem install instrumentation
 To monitor a process, get its PID from the system (using `ps aux | grep PROCESS_NAME`) and start the command:
 
 ```
-$ instrument <pid>
+$ ./bin/instrument <pid>
 ```
 
 Then go to `http://localhost:8080` and you'll see the graph of memory usage over time.
