@@ -22,6 +22,7 @@ module Instrumentation
   end
 end
 
+require 'instrumentation/bounded_array'
 require 'instrumentation/memory'
 require 'instrumentation/server'
 require 'instrumentation/report'

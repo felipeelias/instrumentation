@@ -4,7 +4,7 @@ class Instrumentation::Report
 
   def initialize(pid)
     @pid = pid
-    @datapoints = []
+    @datapoints = Instrumentation::BoundedArray.new(300)
     @socket = nil
   end
 
@@ -13,10 +13,10 @@ class Instrumentation::Report
       loop do
         begin
           memory = Instrumentation::Memory.new(@pid).read
-          @datapoints << [Time.now.strftime("%Y-%m-%d %H:%M:%S"), memory]
+          @datapoints = @datapoints << [Time.now.strftime("%FT%T"), memory]
           puts "Retrieved #{memory} for #{@pid}"
           if socket
-            socket.send_data @datapoints.to_json
+            socket.send_data @datapoints.items.to_json
           end
           sleep 1
         rescue => e
