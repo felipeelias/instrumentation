@@ -35,7 +35,7 @@ Features to be done in order for the gem to be relased as `1.0`:
 - [ ] Add tests when the interface and functionality is defined
 - [ ] Implement memory reader for Linux, that reads from `/proc/<pid>/statm`, example [here][linux-statm]
 - [ ] Implement CPU % reader
-- [ ] Implement Load average reader
+- [x] Implement Load average reader
 - [ ] Let user customize HTTP server port via command line
 
 ## Contributing

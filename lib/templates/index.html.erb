@@ -51,6 +51,16 @@
         <canvas id="memory" width="1000" height="300"></canvas>
       </div>
     </div>
+
+    <div class="container">
+      <div class="stats-column">
+        <h5>Loadavg (1 min)</h5>
+        <h1 id="loadavg-last-value">200</h1>
+      </div>
+      <div class="chart-container">
+        <canvas id="loadavg" width="1000" height="300"></canvas>
+      </div>
+    </div>
   </div>
 
   <script charset="utf-8"><%= asset('chart.min.js') %></script>
@@ -62,12 +72,13 @@
     Chart.defaults.global.elements.line.borderColor = "rgba(0,0,0,0.9)";
     Chart.defaults.global.elements.line.borderWidth = 2;
 
-    var chart = new Chart(document.getElementById('memory'), {
+
+    var defaultOptions = {
       type: 'line',
       data: {
         labels: [],
         datasets: [{
-          label: 'RSS',
+          label: '',
           data: [],
           lineTension: 0.2,
           pointRadius: 0
@@ -98,17 +109,37 @@
       responsive: true,
       maintainAspectRatio: false,
       animation: false
-    });
+    }
+
+    var memoryChart = new Chart(document.getElementById('memory'), defaultOptions);
+    var loadavgChart = new Chart(document.getElementById('loadavg'), defaultOptions);
 
     var socket = new WebSocket("ws://localhost:8080/");
-    socket.onmessage = function (event) {
-      var data = JSON.parse(event.data)
-      var mem = data.map(function(v) { return v[1] });
-      var counts = data.map(function(v) { return v[0] });
+    socket.onmessage = function (raw_event) {
+      var event = JSON.parse(raw_event.data)
 
-      chart.data.labels = counts
-      chart.data.datasets[0].data = mem
-      chart.update()
+      switch (event.data_type) {
+        case 'memory':
+          var mem = event.data.map(function(v) { return v[1] });
+          var counts = event.data.map(function(v) { return v[0] });
+
+          memoryChart.data.labels = counts
+          memoryChart.data.datasets[0].data = mem
+          memoryChart.update()
+
+          break;
+        case 'loadavg':
+          var mem = event.data.map(function(v) { return v[1] });
+          var counts = event.data.map(function(v) { return v[0] });
+
+          loadavgChart.data.labels = counts
+          loadavgChart.data.datasets[0].data = mem
+          loadavgChart.update()
+
+          break;
+        default:
+          break;
+      }
     }
   </script>
 </body>

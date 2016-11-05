@@ -1,9 +1,11 @@
 class Instrumentation::Report
+  attr_reader :memory, :loadavg
   attr_accessor :socket
 
   def initialize(pid)
     @pid = pid
-    @datapoints = Instrumentation::BoundedArray.new(300)
+    @memory = Instrumentation::BoundedArray.new(300)
+    @loadavg = Instrumentation::BoundedArray.new(300)
     @socket = nil
   end
 
@@ -12,10 +14,13 @@ class Instrumentation::Report
       loop do
         begin
           memory = Instrumentation::Memory.new(@pid).read
-          @datapoints = @datapoints << [Time.now.strftime("%FT%T"), memory]
-          puts "Retrieved #{memory} for #{@pid}"
+          @memory = @memory << [Time.now.strftime("%FT%T"), memory]
+          loadavg = Instrumentation::LoadAverage.new.read[:one]
+          @loadavg = @loadavg << [Time.now.strftime("%FT%T"), loadavg]
+          puts "Retrieved #{memory} for #{@pid} and #{loadavg}"
           if socket
-            socket.send_data @datapoints.items.to_json
+            socket.send_data({data_type: 'memory', data: @memory.items}.to_json)
+            socket.send_data({data_type: 'loadavg', data: @loadavg.items}.to_json)
           end
           sleep 1
         rescue => e
