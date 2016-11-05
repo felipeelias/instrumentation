@@ -17,9 +17,7 @@ class Instrumentation::Server
         @report.socket = tubesock
         [ -1, {}, [] ]
       else
-        datapoints = @report.datapoints
-        result     = @view.render(:index, datapoints: datapoints)
-        ['200', {'Content-Type' => 'text/html'}, [result]]
+        ['200', {'Content-Type' => 'text/html'}, [@view.render(:index)]]
       end
     end
   end

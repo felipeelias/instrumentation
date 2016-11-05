@@ -1,5 +1,4 @@
 class Instrumentation::Report
-  attr_reader :datapoints
   attr_accessor :socket
 
   def initialize(pid)
