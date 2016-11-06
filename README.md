@@ -52,6 +52,16 @@ An interactive console with all files loaded is available on:
 bin/console
 ```
 
+## Documentation
+
+You can generate documentation locally:
+
+```
+rake yard
+```
+
+Then open `doc/index.html` in your browser.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/felipeelias/instrumentation. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
