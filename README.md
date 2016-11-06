@@ -21,7 +21,7 @@ rake install
 To monitor a process, get its PID from the system (using `ps aux | grep PROCESS_NAME`) and start the command:
 
 ```
-$ ./bin/instrument <pid>
+$ instrument <pid>
 ```
 
 Then go to `http://localhost:8080` and you'll see the graph of memory usage over time.
@@ -38,6 +38,12 @@ Run tests with:
 
 ```
 rake test
+```
+
+Run the local binary with:
+
+```
+exe/instrument <pid>
 ```
 
 An interactive console with all files loaded is available on:
