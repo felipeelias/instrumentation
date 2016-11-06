@@ -15,13 +15,15 @@ class Instrumentation::Report
         begin
           memory = Instrumentation::Memory.new(@pid).read
           @memory = @memory << [Time.now.strftime("%FT%T"), memory]
+
           loadavg = Instrumentation::LoadAverage.new.read[:one]
           @loadavg = @loadavg << [Time.now.strftime("%FT%T"), loadavg]
-          puts "Retrieved #{memory} for #{@pid} and #{loadavg}"
+
           if socket
             socket.send_data({data_type: 'memory', data: @memory.items}.to_json)
             socket.send_data({data_type: 'loadavg', data: @loadavg.items}.to_json)
           end
+
           sleep 1
         rescue => e
           puts e
@@ -32,5 +34,9 @@ class Instrumentation::Report
 
   def join
     @thread.join
+  end
+
+  def shutdown
+    @thread.kill
   end
 end

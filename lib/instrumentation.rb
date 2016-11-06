@@ -4,17 +4,24 @@ require 'erb'
 require 'json'
 require 'rack'
 require 'puma'
-require 'rack/handler/puma'
 
 module Instrumentation
   extend self
 
-  def start_server(pid:)
+  def start_server(pid:, port: 8080)
     report = Report.new(pid)
-    server = Server.new(report)
+    app = RackApp.new(report)
+    server = Webserver.new
+
     report.start
-    Rack::Handler::Puma.run(server.proc, Port: 8080)
+    server.run(app, port: port)
+
+    server.join
     report.join
+  rescue Interrupt => _
+    print "\n=> Shutting down instrumentation.\n"
+    report.shutdown
+    server.stop
   end
 
   def root
@@ -25,6 +32,7 @@ end
 require 'instrumentation/bounded_array'
 require 'instrumentation/memory'
 require 'instrumentation/load_average'
-require 'instrumentation/server'
+require 'instrumentation/rack_app'
 require 'instrumentation/report'
 require 'instrumentation/view'
+require 'instrumentation/webserver'
