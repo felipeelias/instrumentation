@@ -10,6 +10,12 @@ Until the gem is released, you'll have to clone the repository and run the comma
 $ git clone git@github.com:felipeelias/instrumentation.git
 ```
 
+Then install the gem with
+
+```
+rake install
+```
+
 ## Usage
 
 To monitor a process, get its PID from the system (using `ps aux | grep PROCESS_NAME`) and start the command:
@@ -20,27 +26,48 @@ $ ./bin/instrument <pid>
 
 Then go to `http://localhost:8080` and you'll see the graph of memory usage over time.
 
-## Development
+## Development/Testing
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Install dependencies with:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```
+bin/setup
+```
 
-## To do
+Run tests with:
 
-Features to be done in order for the gem to be relased as `1.0`:
+```
+rake test
+```
 
-- [x] Auto-refresh report (fetch datapoints dynamically)
-- [ ] Implement option parser for command line tool
-- [ ] Add tests when the interface and functionality is defined
-- [ ] Implement memory reader for Linux, that reads from `/proc/<pid>/statm`, example [here][linux-statm]
-- [ ] Implement CPU % reader
-- [x] Implement Load average reader
-- [ ] Let user customize HTTP server port via command line
+An interactive console with all files loaded is available on:
+
+```
+bin/console
+```
 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/felipeelias/instrumentation. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+Make sure that the code passes the style guidelines with:
+
+```
+rake rubocop
+```
+
+If you want to contribute with anything but don't know where to start, check the project's to-do list:
+
+- [x] Auto-refresh report (fetch datapoints dynamically)
+- [x] Implement Load average reader
+- [x] Setup rubocop task
+- [ ] Implement option parser for command line tool
+- [ ] Add tests when the interface and functionality is defined
+- [ ] Implement memory reader for Linux, that reads from `/proc/<pid>/statm`, example [here][linux-statm]
+- [ ] Implement CPU % reader
+- [ ] Let user customize HTTP server port via command line
+- [ ] Setup continuous integration
+- [ ] Setup code climate
 
 ## License
 

@@ -5,9 +5,13 @@ require 'json'
 require 'rack'
 require 'puma'
 
+# Instrumentation
+#
+# Start a server by calling:
+#   Instrumentation.start_server(Process.pid)
+#
+# By default the server is started on http://localhost:8080
 module Instrumentation
-  extend self
-
   def start_server(pid:, port: 8080)
     report = Report.new(pid)
     app = RackApp.new(report)
@@ -16,8 +20,7 @@ module Instrumentation
     report.start
     server.run(app, port: port)
 
-    server.join
-    report.join
+    [server, report].map(&:join)
   rescue Interrupt => _
     print "\n=> Shutting down instrumentation.\n"
     report.shutdown
@@ -27,6 +30,8 @@ module Instrumentation
   def root
     Pathname.new(__FILE__).join('..', '..')
   end
+
+  module_function :start_server, :root
 end
 
 require 'instrumentation/bounded_array'

@@ -5,10 +5,5 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'instrumentation'
 
-pid = if ARGV.first
-  ARGV.first
-else
-  Process.pid
-end
-
+pid = ARGV.first || Process.pid
 Instrumentation.start_server(pid: pid)
