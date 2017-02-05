@@ -8,16 +8,8 @@ Monitor any system stats and process memory usage over time.
 
 ## Installation
 
-Until the gem is released, you'll have to clone the repository and run the command manually:
-
 ```
-$ git clone git@github.com:felipeelias/instrumentation.git
-```
-
-Then install the gem with
-
-```
-rake install
+gem install process-instrumentation
 ```
 
 ## Usage
