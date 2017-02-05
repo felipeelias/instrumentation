@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'instrumentation/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'instrumentation'
+  spec.name          = 'process-instrumentation'
   spec.version       = Instrumentation::VERSION
   spec.authors       = ['Felipe Philipp']
   spec.email         = ['felipeelias@gmail.com']
