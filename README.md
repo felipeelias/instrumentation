@@ -1,5 +1,7 @@
 # Instrumentation
 
+[![Build Status](https://travis-ci.org/felipeelias/instrumentation.svg?branch=master)](https://travis-ci.org/felipeelias/instrumentation)
+
 Monitor any system stats and process memory usage over time.
 
 ![Example](https://github.com/felipeelias/instrumentation/blob/4d74af4a8ad0c97cc2940dec92399e54dbfd4d5e/example.gif "Example")
