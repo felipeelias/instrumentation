@@ -1,9 +1,11 @@
 require 'instrumentation/version'
 require 'pathname'
-require 'erb'
 require 'json'
 require 'rack'
 require 'puma'
+require 'erb/view'
+
+Erb.root = Pathname.new(__FILE__).join('..', '..').join('lib/templates')
 
 # Instrumentation
 #

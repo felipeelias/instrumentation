@@ -15,7 +15,7 @@ module Instrumentation
         @report.socket = socket
         [-1, {}, []]
       else
-        ['200', { 'Content-Type' => 'text/html' }, [@view.render(:index)]]
+        ['200', { 'Content-Type' => 'text/html' }, [@view.render]]
       end
     end
   end

@@ -1,22 +1,16 @@
 module Instrumentation
   # Handles rendering of ERB templates and asset loading
   class View
-    def render(template, data = {})
-      @data = data
-      erb(template).result(binding)
-    end
+    include Erb::View
+    template :index
 
     def asset(path)
-      File.read(root.join('lib/assets', path))
-    end
-
-    def erb(template)
-      ERB.new(File.read(root.join('lib/templates', "#{template}.html.erb")))
+      File.read(asset_root.join('lib/assets', path))
     end
 
     private
 
-    def root
+    def asset_root
       Instrumentation.root
     end
   end
