@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/felipeelias/instrumentation.svg?branch=master)](https://travis-ci.org/felipeelias/instrumentation)
 [![Gem Version](https://badge.fury.io/rb/erb-view.svg)](https://badge.fury.io/rb/erb-view)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6531f22fba0af4aa09be/maintainability)](https://codeclimate.com/github/felipeelias/instrumentation/maintainability)
-[![security](https://hakiri.io/github/felipeelias/instrumentation/master.svg)](https://hakiri.io/github/felipeelias/instrumentation/master)
 
 Monitor any system stats and process memory usage over time.
 
