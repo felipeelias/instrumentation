@@ -1,5 +1,4 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'instrumentation/version'
 
@@ -23,12 +22,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.13'
-  spec.add_development_dependency 'rake', '~> 11.0'
   spec.add_development_dependency 'minitest', '~> 5.0'
   spec.add_development_dependency 'minitest-rg', '~> 5.0'
+  spec.add_development_dependency 'rake', '~> 12.0'
 
-  spec.add_dependency 'rack', '2.0.1'
-  spec.add_dependency 'tubesock', '0.2.7'
-  spec.add_dependency 'puma', '3.6.0'
   spec.add_dependency 'erb-view', '~> 0.1'
+  spec.add_dependency 'puma', '~> 3.6'
+  spec.add_dependency 'rack', '~> 2.0'
+  spec.add_dependency 'tubesock', '~> 0.2'
 end
