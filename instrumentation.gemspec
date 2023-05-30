@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 13.0'
 
   spec.add_dependency 'erb-view', '~> 0.1'
-  spec.add_dependency 'puma', '>= 3.6', '< 5.0'
+  spec.add_dependency 'puma', '>= 3.6', '< 7.0'
   spec.add_dependency 'rack', '>= 2', '< 4'
   spec.add_dependency 'tubesock', '~> 0.2'
 end
